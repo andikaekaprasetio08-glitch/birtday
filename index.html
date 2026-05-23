@@ -26,10 +26,13 @@ body{
   background:
   radial-gradient(circle at top left,#2d3250,#161a30 40%),
   linear-gradient(135deg,#1b1f38,#0d1020);
+
   color:white;
+
   display:flex;
   justify-content:center;
   align-items:center;
+
   position:relative;
 }
 
@@ -66,25 +69,38 @@ body{
   position:relative;
   width:90%;
   max-width:430px;
+
   background:rgba(255,255,255,0.08);
   backdrop-filter:blur(16px);
+
   border:1px solid rgba(255,255,255,0.1);
+
   border-radius:28px;
+
   padding:32px 26px;
+
   text-align:center;
+
   box-shadow:0 20px 60px rgba(0,0,0,0.35);
+
   overflow:hidden;
 }
 
 .badge{
   width:max-content;
   margin:auto;
+
   padding:8px 16px;
+
   border-radius:999px;
+
   background:rgba(255,255,255,0.08);
+
   border:1px solid rgba(255,255,255,0.1);
+
   font-size:13px;
   letter-spacing:1px;
+
   margin-bottom:22px;
 }
 
@@ -105,16 +121,23 @@ body{
 .progress{
   width:100%;
   height:8px;
+
   background:rgba(255,255,255,0.08);
+
   border-radius:999px;
+
   overflow:hidden;
+
   margin-bottom:22px;
 }
 
 .progress-bar{
   width:0%;
   height:100%;
-  background:linear-gradient(90deg,#ff8dc7,#ffc3a0);
+
+  background:
+  linear-gradient(90deg,#ff8dc7,#ffc3a0);
+
   transition:0.4s ease;
 }
 
@@ -126,67 +149,183 @@ body{
 
 .sequence-display{
   background:rgba(255,255,255,0.08);
+
   border:1px solid rgba(255,255,255,0.08);
+
   padding:14px;
+
   border-radius:16px;
+
   margin-bottom:18px;
+
   font-size:18px;
   font-weight:600;
-  letter-spacing:3px;
+  letter-spacing:2px;
+
   min-height:55px;
+
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
-.puzzle-box{
+.memory-game{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:24px;
+
+  gap:12px;
+
+  perspective:1000px;
+
+  position:relative;
 }
 
-.puzzle-piece{
-  aspect-ratio:1/1;
-  border-radius:16px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.08);
+.memory-card{
+  position:relative;
+
+  height:110px;
+
+  cursor:pointer;
+
+  transform-style:preserve-3d;
+
+  transition:0.6s;
+}
+
+.memory-card.flip{
+  transform:rotateY(180deg);
+}
+
+.front,
+.back{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+
+  border-radius:18px;
+
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:28px;
-  cursor:pointer;
-  transition:0.25s ease;
+
+  font-size:32px;
+
+  backface-visibility:hidden;
+
+  border:1px solid rgba(255,255,255,0.1);
 }
 
-.puzzle-piece:hover{
-  transform:translateY(-4px);
-  background:rgba(255,255,255,0.15);
+.front{
+  background:
+  linear-gradient(
+  135deg,
+  rgba(255,255,255,0.12),
+  rgba(255,255,255,0.05)
+  );
+
+  backdrop-filter:blur(8px);
+
+  color:white;
 }
 
-.puzzle-piece.active{
-  background:linear-gradient(135deg,#ff8dc7,#ffc3a0);
-  color:#161a30;
-  transform:scale(0.95);
+.back{
+  background:
+  linear-gradient(
+  135deg,
+  #ff8dc7,
+  #ffc3a0
+  );
+
+  color:#1b1f38;
+
+  transform:rotateY(180deg);
 }
 
-.button{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:16px;
-  font-family:'Poppins',sans-serif;
-  font-size:15px;
-  font-weight:600;
-  background:linear-gradient(135deg,#ff8dc7,#ffc3a0);
-  color:#1c2037;
-  cursor:pointer;
-  transition:0.3s ease;
+.memory-card:hover{
+  transform:translateY(-5px);
 }
 
-.button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(255,141,199,0.35);
+.memory-card.flip:hover{
+  transform:rotateY(180deg);
+}
+
+.floating-particles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.floating-particles::before,
+.floating-particles::after{
+  content:'';
+
+  position:absolute;
+
+  width:250px;
+  height:250px;
+
+  background:rgba(255,255,255,0.05);
+
+  border-radius:50%;
+
+  filter:blur(60px);
+
+  animation:floatParticle 8s infinite alternate;
+}
+
+.floating-particles::before{
+  top:-80px;
+  left:-60px;
+}
+
+.floating-particles::after{
+  bottom:-80px;
+  right:-60px;
+}
+
+@keyframes floatParticle{
+  from{
+    transform:translateY(0px);
+  }
+
+  to{
+    transform:translateY(30px);
+  }
+}
+
+.sparkle{
+  position:absolute;
+
+  width:5px;
+  height:5px;
+
+  background:white;
+
+  border-radius:50%;
+
+  opacity:0.8;
+
+  animation:sparkleAnim linear infinite;
+}
+
+@keyframes sparkleAnim{
+
+  0%{
+    transform:translateY(0) scale(0.5);
+    opacity:0;
+  }
+
+  50%{
+    opacity:1;
+  }
+
+  100%{
+    transform:translateY(-120px) scale(1.2);
+    opacity:0;
+  }
+
 }
 
 .hidden{
@@ -202,6 +341,7 @@ body{
     opacity:0;
     transform:translateY(20px);
   }
+
   to{
     opacity:1;
     transform:translateY(0);
@@ -211,30 +351,46 @@ body{
 .photo-wrapper{
   width:170px;
   height:170px;
+
   margin:0 auto 22px;
+
   padding:5px;
+
   border-radius:24px;
-  background:linear-gradient(135deg,#ff8dc7,#ffc3a0);
+
+  background:
+  linear-gradient(
+  135deg,
+  #ff8dc7,
+  #ffc3a0
+  );
 }
 
 .photo{
   width:100%;
   height:100%;
+
   object-fit:cover;
+
   border-radius:20px;
 }
 
 .big-text{
   font-size:30px;
   font-weight:700;
+
   margin-bottom:14px;
 }
 
 .typing{
   border-right:2px solid rgba(255,255,255,0.7);
+
   white-space:nowrap;
+
   overflow:hidden;
+
   width:0;
+
   animation:
   typing 4s steps(40,end) forwards,
   blink 0.7s infinite;
@@ -254,8 +410,11 @@ body{
 
 .message{
   font-size:14px;
+
   line-height:1.9;
+
   color:rgba(255,255,255,0.82);
+
   margin-bottom:24px;
 }
 
@@ -271,12 +430,50 @@ body{
 }
 
 @keyframes bounce{
+
   0%,100%{
     transform:translateY(0);
   }
+
   50%{
     transform:translateY(-10px);
   }
+
+}
+
+.button{
+  width:100%;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:16px;
+
+  font-family:'Poppins',sans-serif;
+
+  font-size:15px;
+  font-weight:600;
+
+  background:
+  linear-gradient(
+  135deg,
+  #ff8dc7,
+  #ffc3a0
+  );
+
+  color:#1c2037;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+.button:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 10px 25px rgba(255,141,199,0.35);
 }
 
 .footer-text{
@@ -287,42 +484,59 @@ body{
 
 .star{
   position:fixed;
+
   width:4px;
   height:4px;
+
   border-radius:50%;
+
   background:white;
+
   opacity:0.8;
+
   animation:twinkle linear infinite;
 }
 
 @keyframes twinkle{
+
   0%{
     opacity:0.2;
     transform:scale(0.7);
   }
+
   50%{
     opacity:1;
     transform:scale(1.2);
   }
+
   100%{
     opacity:0.2;
     transform:scale(0.7);
   }
+
 }
 
 .confetti{
   position:fixed;
+
   width:10px;
   height:10px;
+
   top:-20px;
+
   animation:fall linear forwards;
 }
 
 @keyframes fall{
+
   to{
-    transform:translateY(110vh) rotate(720deg);
+    transform:
+    translateY(110vh)
+    rotate(720deg);
+
     opacity:0;
   }
+
 }
 
 @media(max-width:480px){
@@ -333,6 +547,10 @@ body{
 
   .big-text{
     font-size:24px;
+  }
+
+  .memory-card{
+    height:95px;
   }
 
 }
@@ -367,28 +585,48 @@ Selesaikan puzzle kecil ini untuk membuka surprise.
 </div>
 
 <div class="game-info">
-Ingat urutan simbol yang muncul lalu ulangi dengan benar.
+Cari 3 pasangan simbol yang sama ✨
 </div>
 
 <div id="sequenceDisplay" class="sequence-display">
-Tekan simbol untuk mulai
+Temukan pasangan simbol
 </div>
 
-<div class="puzzle-box">
+<div class="memory-game">
 
-<div class="puzzle-piece">🎂</div>
-<div class="puzzle-piece">✨</div>
-<div class="puzzle-piece">🎁</div>
+<div class="memory-card" data-symbol="🎂">
+<div class="front">?</div>
+<div class="back">🎂</div>
+</div>
 
-<div class="puzzle-piece">🌸</div>
-<div class="puzzle-piece">💌</div>
-<div class="puzzle-piece">🤍</div>
+<div class="memory-card" data-symbol="🎂">
+<div class="front">?</div>
+<div class="back">🎂</div>
+</div>
 
-<div class="puzzle-piece">🌙</div>
-<div class="puzzle-piece">💫</div>
-<div class="puzzle-piece">🎈</div>
+<div class="memory-card" data-symbol="✨">
+<div class="front">?</div>
+<div class="back">✨</div>
+</div>
+
+<div class="memory-card" data-symbol="✨">
+<div class="front">?</div>
+<div class="back">✨</div>
+</div>
+
+<div class="memory-card" data-symbol="💌">
+<div class="front">?</div>
+<div class="back">💌</div>
+</div>
+
+<div class="memory-card" data-symbol="💌">
+<div class="front">?</div>
+<div class="back">💌</div>
+</div>
 
 </div>
+
+<div class="floating-particles"></div>
 
 </div>
 
@@ -453,132 +691,116 @@ Made with sincerity.
 
 <script>
 
-const pieces = document.querySelectorAll('.puzzle-piece');
-const sequenceDisplay = document.getElementById('sequenceDisplay');
-const progressBar = document.getElementById('progressBar');
+const cards =
+document.querySelectorAll('.memory-card');
 
-const symbols = ['🎂','✨','🎁','🌸','💌'];
+const progressBar =
+document.getElementById('progressBar');
 
-let sequence = [];
-let player = [];
-let level = 1;
-let waiting = true;
+let firstCard = null;
+let secondCard = null;
 
-function startGame(){
+let lock = false;
+let matched = 0;
 
-  sequence = [];
-  player = [];
-  level = 1;
+shuffleCards();
 
-  progressBar.style.width = '0%';
+cards.forEach(card=>{
 
-  nextLevel();
+  card.addEventListener('click',()=>{
 
-}
+    if(lock) return;
 
-function nextLevel(){
+    if(card === firstCard) return;
 
-  waiting = true;
-  player = [];
+    card.classList.add('flip');
 
-  const random =
-  symbols[Math.floor(Math.random()*symbols.length)];
+    if(!firstCard){
 
-  sequence.push(random);
-
-  let i = 0;
-
-  sequenceDisplay.innerHTML = 'Perhatikan...';
-
-  const interval = setInterval(()=>{
-
-    sequenceDisplay.innerHTML = sequence[i];
-
-    i++;
-
-    if(i >= sequence.length){
-
-      clearInterval(interval);
-
-      setTimeout(()=>{
-
-        sequenceDisplay.innerHTML =
-        'Sekarang giliran kamu';
-
-        waiting = false;
-
-      },700);
-
-    }
-
-  },900);
-
-}
-
-pieces.forEach(piece=>{
-
-  piece.addEventListener('click',()=>{
-
-    if(waiting){
-
-      if(sequence.length === 0){
-        startGame();
-      }
-
-      return;
-    }
-
-    const value = piece.innerText;
-
-    player.push(value);
-
-    piece.classList.add('active');
-
-    setTimeout(()=>{
-      piece.classList.remove('active');
-    },250);
-
-    const current = player.length - 1;
-
-    if(player[current] !== sequence[current]){
-
-      alert('Urutannya kurang tepat, coba lagi ✨');
-
-      startGame();
-
+      firstCard = card;
       return;
 
     }
 
-    if(player.length === sequence.length){
+    secondCard = card;
 
-      level++;
-
-      progressBar.style.width =
-      (level-1)*20 + '%';
-
-      if(level === 6){
-
-        openSurprise();
-        return;
-
-      }
-
-      setTimeout(()=>{
-        nextLevel();
-      },1000);
-
-    }
+    checkMatch();
 
   });
 
 });
 
+function checkMatch(){
+
+  const isMatch =
+  firstCard.dataset.symbol ===
+  secondCard.dataset.symbol;
+
+  if(isMatch){
+
+    matched++;
+
+    progressBar.style.width =
+    matched * 33 + '%';
+
+    createMiniSpark();
+
+    resetCards();
+
+    if(matched === 3){
+
+      setTimeout(()=>{
+
+        openSurprise();
+
+      },900);
+
+    }
+
+  }else{
+
+    lock = true;
+
+    setTimeout(()=>{
+
+      firstCard.classList.remove('flip');
+      secondCard.classList.remove('flip');
+
+      resetCards();
+
+    },900);
+
+  }
+
+}
+
+function resetCards(){
+
+  [firstCard,secondCard] =
+  [null,null];
+
+  lock = false;
+
+}
+
+function shuffleCards(){
+
+  cards.forEach(card=>{
+
+    let random =
+    Math.floor(Math.random()*12);
+
+    card.style.order = random;
+
+  });
+
+}
+
 function openSurprise(){
 
-  waiting = true;
-
-  sequenceDisplay.innerHTML = 'Opening...';
+  document
+  .getElementById('sequenceDisplay')
+  .innerHTML = 'Opening... ✨';
 
   setTimeout(()=>{
 
@@ -658,6 +880,34 @@ function createConfetti(){
     (Math.random()*3+2) + 's';
 
     document.body.appendChild(confetti);
+
+  }
+
+}
+
+function createMiniSpark(){
+
+  for(let i=0;i<15;i++){
+
+    const spark =
+    document.createElement('div');
+
+    spark.classList.add('sparkle');
+
+    spark.style.left =
+    Math.random()*window.innerWidth + 'px';
+
+    spark.style.top =
+    Math.random()*window.innerHeight + 'px';
+
+    spark.style.animationDuration =
+    (Math.random()*2+1) + 's';
+
+    document.body.appendChild(spark);
+
+    setTimeout(()=>{
+      spark.remove();
+    },3000);
 
   }
 
